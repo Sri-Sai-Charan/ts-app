@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ModelInterface } from '../../types';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState: ModelInterface[] = [];
 
@@ -10,11 +11,22 @@ export const createCustomSlice = (name: string) => {
         name,
         initialState,
         reducers: {
-            add: (state, action: PayloadAction<ModelInterface>) => {
-                state.push(action.payload);
-            },
+            add:{
+                reducer: (state, action: PayloadAction<ModelInterface>) => {
+                    state.push(action.payload);
+                    
+                },
+                prepare: (text: string) => ({
+                    payload: {
+                      id: uuidv4(),
+                      text,
+                      isFinished: false,
+                    } as ModelInterface,
+                  }),
+            }, 
             remove: (state, action: PayloadAction<string>) => {
-                return state.filter((item) => item.id !== action.payload);
+                const index = state.findIndex(({ id }) => id === action.payload);
+                state.splice(index, 1);
             
             },
             update: (state, action: PayloadAction<ModelInterface>) => {
@@ -23,6 +35,6 @@ export const createCustomSlice = (name: string) => {
             }
         }
     });
-    return {add, remove, update, reducer};
+    return {actions: {add, remove, update}, reducer};
         
 }

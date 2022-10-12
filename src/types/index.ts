@@ -10,6 +10,6 @@ export interface AppInterface {
     labelText?: string;
     addHandler: (v: string) => AnyAction;
     removeHandler: (v: string) => AnyAction;
-    selectorState: ModelInterface[];
-    droppableId: string;
+    updateHandler: (v: ModelInterface) => AnyAction;
+    selectorState?: ModelInterface[];
 }
