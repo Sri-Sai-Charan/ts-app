@@ -11,7 +11,7 @@ import { ModelInterface } from './types';
 import { todoSlice } from './redux/slice/todoSlice';
 
 function App() {
- 
+  const { reducer } = useSelector((state: StoreState) => state);
   const {
     actions: { add, remove, update},
   } = todoSlice;
@@ -23,7 +23,9 @@ function App() {
     <Grid container spacing={1} justifyContent='center'>
       <AppLayout 
         addHandler={add} 
-        removeHandler={remove} updateHandler={update} />
+        removeHandler={remove} updateHandler={update} 
+        selectorState={reducer}
+        />
     </Grid>
   </Container>
   );

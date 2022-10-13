@@ -11,5 +11,5 @@ export interface AppInterface {
     addHandler: (v: string) => AnyAction;
     removeHandler: (v: string) => AnyAction;
     updateHandler: (v: ModelInterface) => AnyAction;
-    selectorState?: ModelInterface[];
+    selectorState: ModelInterface[];
 }
